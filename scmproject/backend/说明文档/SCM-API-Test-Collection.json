@@ -1,0 +1,382 @@
+{
+    "info": {
+        "name": "SCM API Test Collection",
+        "description": "库存与订单管理系统 API 测试集合\n依赖顺序：1. 确保 users 表有 uid=123,456 → 2. Inventory → 3. Orders → 4. Product Details",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Inventory",
+            "item": [
+                {
+                    "name": "POST - 创建库存",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"product_id\": 101,\n  \"product_name\": \"无线蓝牙耳机\",\n  \"quantity\": 50,\n  \"alert_threshold\": 10\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/inventory",
+                            "variable": [
+                                {
+                                    "key": "base_url",
+                                    "value": "http://localhost:5000"
+                                }
+                            ],
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "inventory"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "GET - 查询库存 (by product_id)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/api/inventory/101",
+                            "variable": [
+                                {
+                                    "key": "base_url",
+                                    "value": "http://localhost:5000"
+                                }
+                            ],
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "inventory",
+                                "101"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "PUT - 更新库存",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"product_name\": \"升级版蓝牙耳机\",\n  \"quantity\": 45,\n  \"alert_threshold\": 8\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/inventory/101",
+                            "variable": [
+                                {
+                                    "key": "base_url",
+                                    "value": "http://localhost:5000"
+                                }
+                            ],
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "inventory",
+                                "101"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "DELETE - 删除库存",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/api/inventory/101",
+                            "variable": [
+                                {
+                                    "key": "base_url",
+                                    "value": "http://localhost:5000"
+                                }
+                            ],
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "inventory",
+                                "101"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Orders",
+            "item": [
+                {
+                    "name": "POST - 创建订单",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"order_id\": \"ORD001\",\n  \"creator_uid\": 123,\n  \"customer_uid\": 456,\n  \"title\": \"采购订单 - 蓝牙耳机\",\n  \"description\": \"首批采购50个\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/orders",
+                            "variable": [
+                                {
+                                    "key": "base_url",
+                                    "value": "http://localhost:5000"
+                                }
+                            ],
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "orders"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "GET - 查询订单 (by order_id)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/api/orders/ORD001",
+                            "variable": [
+                                {
+                                    "key": "base_url",
+                                    "value": "http://localhost:5000"
+                                }
+                            ],
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "orders",
+                                "ORD001"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "PUT - 更新订单",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"creator_uid\": 123,\n  \"customer_uid\": 456,\n  \"title\": \"修改后的采购订单\",\n  \"description\": \"数量增加至60\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/orders/ORD001",
+                            "variable": [
+                                {
+                                    "key": "base_url",
+                                    "value": "http://localhost:5000"
+                                }
+                            ],
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "orders",
+                                "ORD001"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "DELETE - 删除订单",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/api/orders/ORD001",
+                            "variable": [
+                                {
+                                    "key": "base_url",
+                                    "value": "http://localhost:5000"
+                                }
+                            ],
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "orders",
+                                "ORD001"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Product Details",
+            "item": [
+                {
+                    "name": "POST - 创建产品详情",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"product_id\": 101,\n  \"order_id\": \"ORD001\",\n  \"quantity\": 50,\n  \"reference_price\": 199.99,\n  \"cost_price\": 150.00\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/product-details",
+                            "variable": [
+                                {
+                                    "key": "base_url",
+                                    "value": "http://localhost:5000"
+                                }
+                            ],
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "product-details"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "GET - 查询产品详情 (by detail_id)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/api/product-details/1",
+                            "variable": [
+                                {
+                                    "key": "base_url",
+                                    "value": "http://localhost:5000"
+                                }
+                            ],
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "product-details",
+                                "1"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "PUT - 更新产品详情",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"quantity\": 55,\n  \"reference_price\": 209.99,\n  \"cost_price\": 155.00\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/product-details/1",
+                            "variable": [
+                                {
+                                    "key": "base_url",
+                                    "value": "http://localhost:5000"
+                                }
+                            ],
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "product-details",
+                                "1"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "DELETE - 删除产品详情",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/api/product-details/1",
+                            "variable": [
+                                {
+                                    "key": "base_url",
+                                    "value": "http://localhost:5000"
+                                }
+                            ],
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "product-details",
+                                "1"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ],
+    "variable": [
+        {
+            "id": "base_url",
+            "value": "http://localhost:5000",
+            "type": "string"
+        }
+    ]
+}

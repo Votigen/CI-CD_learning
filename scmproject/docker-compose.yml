@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  mariadb:
+    image: mariadb:11
+    container_name: scm-mariadb
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: scmproject
+      MARIADB_USER: scmuser
+      MARIADB_PASSWORD: scmpass
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - scm-network
+
+  backend:
+    image: ${{ secrets.DOCKER_USERNAME }}/scmproject-backend:latest   # 改为你的 Docker Hub 镜像名
+    container_name: scm-backend
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 5000
+      DB_HOST: mariadb
+      DB_USER: scmuser
+      DB_PASSWORD: scmpass
+      DB_NAME: scmproject
+      DB_PORT: 3306
+      JWT_SECRET: your_very_secure_secret
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mariadb
+    networks:
+      - scm-network
+
+  frontend:
+    image: ${{ secrets.DOCKER_USERNAME }}/scmproject-frontend:latest
+    container_name: scm-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - scm-network
+
+volumes:
+  mariadb_data:
+
+networks:
+  scm-network:
+    driver: bridge

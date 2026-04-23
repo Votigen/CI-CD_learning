@@ -1,0 +1,21 @@
+name: CI/CD for scmproject
+
+on:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  deploy:
+    runs-on: self-hosted   # 关键：使用你的本地 runner
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build and restart with Docker Compose
+        run: |
+          cd ${{ github.workspace }}
+          docker compose down
+          docker compose up -d --build
+
+      - name: Show container status
+        run: docker ps
