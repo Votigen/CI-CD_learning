@@ -8,13 +8,26 @@ jobs:
   deploy:
     runs-on: self-hosted
     steps:
-      - name: Pull latest code and redeploy
+      - uses: actions/checkout@v4
+
+      - name: Build and restart with Docker Compose
         run: |
-          cd /home/hwb/projects/CI-CD_learning/scmproject
-          git fetch origin main
-          git reset --hard origin/main
+          cd scmproject
           docker compose down
           docker compose up -d --build
+
+      - name: Wait for backend to be ready (Smoke Test)
+        run: |
+          echo "Waiting for backend to start..."
+          for i in {1..30}; do
+            if curl -f http://localhost:5000/health; then
+              echo "✅ Smoke test passed!"
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "❌ Smoke test failed: backend not responding"
+          exit 1
 
       - name: Show container status
         run: docker ps

@@ -26,6 +26,7 @@ async function testDatabaseConnection() {
     }
 }
 
+
 testDatabaseConnection();
 
 const PORT = process.env.PORT || 5000;

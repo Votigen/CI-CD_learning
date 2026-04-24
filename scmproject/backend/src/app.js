@@ -12,6 +12,11 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
 
+//添加冒烟测试
+app.get('/health', (req, res) => {
+    res.status(200).json({ status: 'ok', timestamp: new Date() });
+});
+
 // API 路由
 app.use('/api', routes);
 

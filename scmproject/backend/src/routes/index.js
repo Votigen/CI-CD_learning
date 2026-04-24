@@ -9,6 +9,7 @@ const inventoryRoutes = require('./api/inventoryRoutes');
 const authRoutes = require('./api/authRoutes');
 const contactsRoutes = require('./api/contactsRoutes');
 const statisticsRoutes = require('./api/statisticsRoutes');
+
 // ✅ 给每个子路由分配独立前缀
 router.use('/users', userRoutes);           // → /api/users/*
 router.use('/product-details', productDetails); // → /api/product-details/*
