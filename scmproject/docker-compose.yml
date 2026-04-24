@@ -17,7 +17,7 @@ services:
       - scm-network
 
   backend:
-    image: ${{ secrets.DOCKER_USERNAME }}/scmproject-backend:latest   # 改为你的 Docker Hub 镜像名
+    build: ./backend # ✅ 使用本地 Dockerfile 构建
     container_name: scm-backend
     restart: unless-stopped
     environment:
@@ -37,7 +37,7 @@ services:
       - scm-network
 
   frontend:
-    image: ${{ secrets.DOCKER_USERNAME }}/scmproject-frontend:latest
+    build: ./frontend # ✅ 使用本地 Dockerfile 构建
     container_name: scm-frontend
     restart: unless-stopped
     ports:
@@ -49,6 +49,7 @@ services:
 
 volumes:
   mariadb_data:
+
 
 networks:
   scm-network:
