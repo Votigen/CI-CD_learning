@@ -11,7 +11,8 @@ jobs:
       - name: Pull latest code and redeploy
         run: |
           cd /home/hwb/projects/CI-CD_learning/scmproject
-          git pull origin main
+          git fetch origin main
+          git reset --hard origin/main
           docker compose down
           docker compose up -d --build
 
